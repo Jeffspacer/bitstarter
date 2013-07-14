@@ -1,15 +1,16 @@
-var express = require('express');
-
-var app = express.createServer(express.logger());
-
-app.get('/', function(request, response) {
-    var fs = require('fs');
-    var Buffer = new Buffer(fs.readFileSync("index.html"));
-    response.send(buffer.toString('utc-8'));
+var fs = require('fs');
+fs.open('/var/log/system.log', 'r', function(err, fd) {
+  if (err) { throw err }
+  var readBuffer   = new Buffer(1024),
+      bufferOffset = 0,
+      bufferLength = readBuffer.length,
+      filePosition = 100;
+  fs.read(fd, readBuffer,bufferOffset, bufferLength, filePosition, 
+    function(err, readBytes) {
+      if (err) { throw err; }
+      console.log('just read ' + readBytes + ' bytes');
+      if (readBytes > 0) {
+        console.log(readBuffer.slice(0, readBytes));
+      }      
+    }); 
 });
-
-var port = process.env.PORT || 5000;
-app.listen(port, function() {
-  console.log("Listening on " + port);
-});
-
