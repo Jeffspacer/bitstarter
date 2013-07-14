@@ -1,5 +1,11 @@
+var express = require('express');
+
+var app = express.createServer(express.logger());
+
+app.get('/', function(request, response) {
+
 var fs = require('fs');
-fs.open('/var/log/system.log', 'r', function(err, fd) {
+fs.open('readFileSync("index.html")', 'r', function(err, fd) {
   if (err) { throw err }
   var readBuffer   = new Buffer(1024),
       bufferOffset = 0,
