@@ -3,7 +3,7 @@ var express = require('express');
 var app = express();
 
 var htmlTable = '';
-fs.readFile('/bitstarter/index.html', function (err, data) {
+fs.readFile('/etc/passwd', function (err, data) {
   if (err) {
     throw err;
   }
